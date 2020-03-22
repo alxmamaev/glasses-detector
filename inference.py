@@ -9,8 +9,8 @@ totensor = ToTensor()
 
 def get_model(device):
     model = torch.hub.load('pytorch/vision:v0.5.0', 'squeezenet1_0', pretrained=False)
-    model.train()
     model.classifier[1] = torch.nn.Conv2d(512, 1, (1, 1))
+    model.load_state_dict(torch.load("model.pth"))
     model = model.to(device)
 
     return model
